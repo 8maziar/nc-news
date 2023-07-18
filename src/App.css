@@ -84,3 +84,21 @@ color: white;
 .articles-list p {
   font-size: 16px;
 }
+
+.articles-list button {
+  padding: 8px;
+}
+
+/* Article page */
+
+.article-page{
+
+}
+
+.single-article{
+
+}
+
+.single-article img{
+  width: 500px;
+}

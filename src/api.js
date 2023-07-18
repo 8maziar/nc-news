@@ -10,3 +10,9 @@ export const getArticles = () => {
   });
 };
 
+export const getArticle = (id) => {
+  return usersApi.get(`/articles/${id}`).then(({ data }) => {
+    return data.article;
+  });
+};
+
