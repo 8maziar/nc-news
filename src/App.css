@@ -20,7 +20,7 @@ a {
   text-decoration: none;
 }
 
-/* Header */
+
 
 nav{
   display: flex;
@@ -42,7 +42,7 @@ nav a{
 color: white;
 }
 
-/* Landing page */
+
 .home {
   height: 100vh;
   justify-content: center;
@@ -63,7 +63,7 @@ color: white;
   width: 50%;
 }
 
-/* articles page */
+
 
 .articles-title{
   text-align: center;
@@ -89,7 +89,7 @@ color: white;
   padding: 8px;
 }
 
-/* Article page */
+
 
 .article-page{
 

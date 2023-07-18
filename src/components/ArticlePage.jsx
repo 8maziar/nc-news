@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const ArticlePage = () => {
     const [article,setArticle] =useState({})
-     const { article_img_url, author, comment_count, title, topic, votes } = article;
+     const { article_img_url, author, comment_count, title, topic, votes, body } = article;
 
      const { single_article } = useParams();
 
@@ -21,12 +21,13 @@ const ArticlePage = () => {
           <img src={article_img_url} alt="article-image" />
           <h5>{title}</h5>
           <section>
-            <p>{author}</p>
-            <p>{topic}</p>
+            <p>Author: {author}</p>
+            <p>Topic: {topic}</p>
+            <p>{body}</p>
           </section>
           <section>
-            <p>{comment_count}</p>
-            <p>{votes}</p>
+            <p>Comments:{comment_count}</p>
+            <p>Likes:{votes}</p>
           </section>
         </article>
       </section>
