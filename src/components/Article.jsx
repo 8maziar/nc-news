@@ -4,14 +4,14 @@ const Article = ({ article }) => {
     <article>
       <img src={article_img_url} alt="article-image" />
       <h5>{title}</h5>
-      <div>
+      <section>
         <p>{author}</p>
         <p>{topic}</p>
-      </div>
-      <div>
+      </section>
+      <section>
         <p>{comment_count}</p>
         <p>{votes}</p>
-      </div>
+      </section>
     </article>
   );
 };
