@@ -1,18 +1,23 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getArticle } from "../api";
 import { useParams } from "react-router-dom";
+import loadImg from "../assets/loading.png";
 
 const ArticlePage = () => {
-    const [article,setArticle] =useState({})
-     const { article_img_url, author, comment_count, title, topic, votes, body } = article;
+  const [article, setArticle] = useState({});
+  const [loading, setLoading] = useState(true);
+  const { article_img_url, author, comment_count, title, topic, votes, body } = article;
 
-     const { single_article } = useParams();
+  const { single_article } = useParams();
 
-     useEffect(() => {
-       getArticle(single_article).then((res) => {
-         setArticle(res);
-       });
-     }, []);
+  useEffect(() => {
+    getArticle(single_article).then((res) => {
+      setArticle(res);
+      setLoading(false)
+    });
+  }, []);
+
+  if (loading) return <img src={loadImg} alt="loading" />;
 
   return (
     <main className="article-page">
@@ -33,5 +38,5 @@ const ArticlePage = () => {
       </section>
     </main>
   );
-}
-export default ArticlePage
+};
+export default ArticlePage;
