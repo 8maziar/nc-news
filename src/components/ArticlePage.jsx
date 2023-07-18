@@ -3,6 +3,7 @@ import { getArticle, getcommentsById } from "../api";
 import { useParams } from "react-router-dom";
 import loadImg from "../assets/loading.png";
 import { BsFillPersonFill, BsFillBookFill, BsFillChatDotsFill, BsHandThumbsUpFill } from "react-icons/bs";
+import Comment from "./Comment";
 
 const ArticlePage = () => {
   const [article, setArticle] = useState({});
@@ -56,18 +57,7 @@ const ArticlePage = () => {
       </section>
       <section>
         {comments.map((comment) => {
-          const { author, body, votes, created_at, comment_id } = comment;
-          return (
-            <article className="comment" key={comment_id}>
-              <p>
-                <strong>{author}</strong> : {body}
-              </p>
-              <p className="comment-votes">
-                <span><BsHandThumbsUpFill/>{votes}</span>
-                <span>{created_at.slice(0, 10)}</span>
-              </p>
-            </article>
-          );
+          return <Comment key={comment.comment_id} comment={comment}/>;
         })}
       </section>
     </main>
