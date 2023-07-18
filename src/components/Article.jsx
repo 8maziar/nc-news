@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { getArticle } from "../api";
+import { BsFillPersonFill, BsFillBookFill, BsFillChatDotsFill, BsHandThumbsUpFill } from "react-icons/bs";
 
 const Article = ({ article }) => {
   const { article_img_url, author, comment_count, title, topic, votes } = article;
@@ -12,15 +12,15 @@ function showSingleArticle(){
 
   return (
     <article>
-      <img src={article_img_url} alt="article-image" />
+      <img src={article_img_url} alt="article-image" onClick={showSingleArticle}/>
       <h5>{title}</h5>
       <section>
-        <p>{author}</p>
-        <p>{topic}</p>
+        <p><BsFillPersonFill/>{author}</p>
+        <p><BsFillBookFill/>{topic}</p>
       </section>
       <section>
-        <p>{comment_count}</p>
-        <p>{votes}</p>
+        <p><BsFillChatDotsFill/>{comment_count}</p>
+        <p><BsHandThumbsUpFill/>{votes}</p>
       </section>
       <button onClick={showSingleArticle}>More</button>
     </article>
