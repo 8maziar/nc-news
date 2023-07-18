@@ -4,15 +4,15 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <nav>
-        <div>
+        <a>
           <img src={logo} alt="logo" className="nav-logo" />
-        </div>
+        </a>
         <ul className="nav-links">
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/about">About</NavLink>
+            <NavLink to="/articles">Articles</NavLink>
           </li>
         </ul>
     </nav>
