@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { getArticle } from "../api";
+import { getArticle, getcommentsById } from "../api";
 import { useParams } from "react-router-dom";
 import loadImg from "../assets/loading.png";
 import { BsFillPersonFill, BsFillBookFill, BsFillChatDotsFill, BsHandThumbsUpFill } from "react-icons/bs";
 
-
 const ArticlePage = () => {
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const { article_img_url, author, comment_count, title, topic, votes, body } = article;
 
@@ -15,7 +15,11 @@ const ArticlePage = () => {
   useEffect(() => {
     getArticle(single_article).then((res) => {
       setArticle(res);
-      setLoading(false)
+      setLoading(false);
+    });
+
+    getcommentsById(single_article).then((res) => {
+      setComments(res);
     });
   }, []);
 
@@ -49,6 +53,22 @@ const ArticlePage = () => {
             </p>
           </section>
         </article>
+      </section>
+      <section>
+        {comments.map((comment) => {
+          const { author, body, votes, created_at, comment_id } = comment;
+          return (
+            <article className="comment" key={comment_id}>
+              <p>
+                <strong>{author}</strong> : {body}
+              </p>
+              <p className="comment-votes">
+                <span><BsHandThumbsUpFill/>{votes}</span>
+                <span>{created_at.slice(0, 10)}</span>
+              </p>
+            </article>
+          );
+        })}
       </section>
     </main>
   );
