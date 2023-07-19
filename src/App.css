@@ -102,6 +102,13 @@ display: flex;
 .single-article img{
   width: 500px;
 }
+
+.comment-box{
+  height: 500px;
+  overflow-y: scroll;
+ 
+}
+
 .comment-votes{
   display: flex;
   justify-content: space-around;

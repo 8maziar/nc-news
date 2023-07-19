@@ -55,7 +55,7 @@ const ArticlePage = () => {
           </section>
         </article>
       </section>
-      <section>
+      <section className="comment-box">
         {comments.map((comment) => {
           return <Comment key={comment.comment_id} comment={comment}/>;
         })}
