@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { getArticle } from "../api";
+import { getArticle, getcommentsById } from "../api";
 import { useParams } from "react-router-dom";
 import loadImg from "../assets/loading.png";
 import { BsFillPersonFill, BsFillBookFill, BsFillChatDotsFill, BsHandThumbsUpFill } from "react-icons/bs";
-
+import Comment from "./Comment";
 
 const ArticlePage = () => {
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const { article_img_url, author, comment_count, title, topic, votes, body } = article;
 
@@ -15,7 +16,11 @@ const ArticlePage = () => {
   useEffect(() => {
     getArticle(single_article).then((res) => {
       setArticle(res);
-      setLoading(false)
+      setLoading(false);
+    });
+
+    getcommentsById(single_article).then((res) => {
+      setComments(res);
     });
   }, []);
 
@@ -49,6 +54,11 @@ const ArticlePage = () => {
             </p>
           </section>
         </article>
+      </section>
+      <section className="comment-box">
+        {comments.map((comment) => {
+          return <Comment key={comment.comment_id} comment={comment}/>;
+        })}
       </section>
     </main>
   );
