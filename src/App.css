@@ -120,3 +120,10 @@ display: flex;
   background-color: rgb(255, 242, 219);
   padding: 14px;
 }
+
+.voting {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  font-size: 40px;
+}

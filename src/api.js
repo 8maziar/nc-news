@@ -5,8 +5,8 @@ const usersApi = axios.create({
 });
 
 export const getArticles = () => {
-  return usersApi.get("/articles").then(({data}) => {
-    return data.articles
+  return usersApi.get("/articles").then(({ data }) => {
+    return data.articles;
   });
 };
 
@@ -22,3 +22,8 @@ export const getcommentsById = (id) => {
   });
 };
 
+export const updateVotes = (id, num) => {
+  return usersApi.patch(`/articles/${id}`, { inc_votes: num }).then(({ data }) => {
+    return data.article
+  });
+};
