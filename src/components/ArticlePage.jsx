@@ -88,6 +88,7 @@ const ArticlePage = () => {
                 <BsHandThumbsDownFill />
               </button>
             </section>
+              {error && <p>something went wrong</p>}
           </section>
         </article>
       </section>
