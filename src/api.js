@@ -24,6 +24,18 @@ export const getcommentsById = (id) => {
 
 export const updateVotes = (id, num) => {
   return usersApi.patch(`/articles/${id}`, { inc_votes: num }).then(({ data }) => {
-    return data.article
+    return data.article;
   });
+};
+
+export const postComment = (id, comment) => {
+  console.log(id);
+  return usersApi
+    .post(`/articles/${id}/comments`, {
+      username: "weegembump",
+      body: comment,
+    })
+    .then(({ data }) => {
+      return data.comment;
+    });
 };

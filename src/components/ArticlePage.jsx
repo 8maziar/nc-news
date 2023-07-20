@@ -4,16 +4,23 @@ import { useParams } from "react-router-dom";
 import loadImg from "../assets/loading.png";
 import { BsFillPersonFill, BsFillBookFill, BsFillChatDotsFill, BsHandThumbsUpFill, BsHandThumbsDownFill } from "react-icons/bs";
 import Comment from "./Comment";
+import Form from "./Form";
 
 const ArticlePage = () => {
   const [voteCount, setVoteCount] = useState(0);
   const [article, setArticle] = useState({});
+  const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const { article_img_url, author, comment_count, title, topic, body } = article;
+  const { article_img_url, author, comment_count, title, topic, body, article_id } = article;
 
   const { single_article } = useParams();
+
+  useEffect(() => {
+    if(newComment) setComments([newComment, ...comments]);
+    
+  }, [newComment]);
 
   useEffect(() => {
     getArticle(single_article).then((res) => {
@@ -30,8 +37,7 @@ const ArticlePage = () => {
   function addVote() {
     setVoteCount((currentCount) => currentCount + 1);
     updateVotes(single_article, 1)
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch(() => {
         setError(true);
         setVoteCount((currentCount) => currentCount - 1);
@@ -44,8 +50,7 @@ const ArticlePage = () => {
   function subtractVote() {
     setVoteCount((currentCount) => currentCount - 1);
     updateVotes(single_article, -1)
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch(() => {
         setError(true);
         setVoteCount((currentCount) => currentCount + 1);
@@ -54,6 +59,7 @@ const ArticlePage = () => {
         }, 800);
       });
   }
+
 
   if (loading) return <img src={loadImg} alt="loading" />;
 
@@ -88,15 +94,18 @@ const ArticlePage = () => {
                 <BsHandThumbsDownFill />
               </button>
             </section>
-              {error && <p>something went wrong</p>}
+            {error && <p>something went wrong</p>}
           </section>
         </article>
       </section>
-      <section className="comment-box">
-        {comments.map((comment) => {
-          return <Comment key={comment.comment_id} comment={comment} />;
-        })}
-      </section>
+      <div>
+        <section className="comment-box">
+          {comments.map((comment) => {
+            return <Comment key={comment.comment_id} comment={comment} />;
+          })}
+        </section>
+        <Form single_article={single_article} setNewComment={setNewComment} />
+      </div>
     </main>
   );
 };
