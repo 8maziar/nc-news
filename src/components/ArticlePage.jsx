@@ -104,7 +104,7 @@ const ArticlePage = () => {
             return <Comment key={comment.comment_id} comment={comment} />;
           })}
         </section>
-        <Form single_article={single_article} setNewComment={setNewComment} />
+        <Form single_article={single_article} setNewComment={setNewComment} comments={comments}/>
       </div>
     </main>
   );

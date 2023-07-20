@@ -1,22 +1,29 @@
 import { useState } from "react";
 import { postComment } from "../api";
 
-const Form = ({ single_article, setNewComment }) => {
+const Form = ({ single_article, setNewComment, comments }) => {
   const [comment, setComment] = useState("");
   const [err, setErr] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    postComment(single_article, comment)
-      .then((res) => {
-        setNewComment(res);
-      })
-      .catch(() => {
-        setErr(true);
-        setTimeout(() => {
-          setErr(false);
-        }, 700);
-      });
+    if (comments.some((item) => item.body === comment)) {
+      setErr(true);
+      setTimeout(() => {
+        setErr(false);
+      }, 700);
+    } else {
+      postComment(single_article, comment)
+        .then((res) => {
+          setNewComment(res);
+        })
+        .catch(() => {
+          setErr(true);
+          setTimeout(() => {
+            setErr(false);
+          }, 700);
+        });
+    }
   }
 
   return (

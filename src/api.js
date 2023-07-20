@@ -29,7 +29,6 @@ export const updateVotes = (id, num) => {
 };
 
 export const postComment = (id, comment) => {
-  console.log(id);
   return usersApi
     .post(`/articles/${id}/comments`, {
       username: "weegembump",

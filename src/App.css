@@ -137,10 +137,22 @@ width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  position: relative;
 
 }
 
 .form button {
   padding: 10px;
   background-color: tomato;
+}
+
+.form p {
+  position: absolute;
+  top: 11px;
+  right: 9px;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .article-page{flex-direction: column;}
 }
