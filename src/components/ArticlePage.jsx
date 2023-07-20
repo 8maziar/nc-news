@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { getArticle, getcommentsById } from "../api";
+import { getArticle, getcommentsById, updateVotes } from "../api";
 import { useParams } from "react-router-dom";
 import loadImg from "../assets/loading.png";
-import { BsFillPersonFill, BsFillBookFill, BsFillChatDotsFill, BsHandThumbsUpFill } from "react-icons/bs";
+import { BsFillPersonFill, BsFillBookFill, BsFillChatDotsFill, BsHandThumbsUpFill, BsHandThumbsDownFill } from "react-icons/bs";
 import Comment from "./Comment";
 
 const ArticlePage = () => {
+  const [voteCount, setVoteCount] = useState(0);
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { article_img_url, author, comment_count, title, topic, votes, body } = article;
+  const [error, setError] = useState(false);
+  const { article_img_url, author, comment_count, title, topic, body } = article;
 
   const { single_article } = useParams();
 
@@ -17,12 +19,41 @@ const ArticlePage = () => {
     getArticle(single_article).then((res) => {
       setArticle(res);
       setLoading(false);
+      setVoteCount(res.votes);
     });
 
     getcommentsById(single_article).then((res) => {
       setComments(res);
     });
   }, []);
+
+  function addVote() {
+    setVoteCount((currentCount) => currentCount + 1);
+    updateVotes(single_article, 1)
+      .then((res) => {
+      })
+      .catch(() => {
+        setError(true);
+        setVoteCount((currentCount) => currentCount - 1);
+        setTimeout(() => {
+          setError("");
+        }, 800);
+      });
+  }
+
+  function subtractVote() {
+    setVoteCount((currentCount) => currentCount - 1);
+    updateVotes(single_article, -1)
+      .then((res) => {
+      })
+      .catch(() => {
+        setError(true);
+        setVoteCount((currentCount) => currentCount + 1);
+        setTimeout(() => {
+          setError("");
+        }, 800);
+      });
+  }
 
   if (loading) return <img src={loadImg} alt="loading" />;
 
@@ -48,16 +79,22 @@ const ArticlePage = () => {
               <BsFillChatDotsFill />
               {comment_count}
             </p>
-            <p>
-              <BsHandThumbsUpFill />
-              {votes}
-            </p>
+            <section className="voting">
+              <button onClick={addVote} style={{ border: `1px solid ${error ? "red" : "black"}` }}>
+                <BsHandThumbsUpFill />
+              </button>
+              <span>{voteCount}</span>
+              <button onClick={subtractVote} style={{ border: `1px solid ${error ? "red" : "black"}` }}>
+                <BsHandThumbsDownFill />
+              </button>
+            </section>
+              {error && <p>something went wrong</p>}
           </section>
         </article>
       </section>
       <section className="comment-box">
         {comments.map((comment) => {
-          return <Comment key={comment.comment_id} comment={comment}/>;
+          return <Comment key={comment.comment_id} comment={comment} />;
         })}
       </section>
     </main>
