@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/articles" element={<Articles />} />
+        <Route path="/articles/:topic" element={<Articles />} />
         <Route path="/articles/:single_article" element={<ArticlePage />} />
       </Routes>
     </>

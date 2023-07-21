@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../api";
 import Article from "./Article";
-import loadImg from '../assets/loading.png'
-
+import loadImg from "../assets/loading.png";
+import { useParams } from "react-router-dom";
 
 const Articles = () => {
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
+
+  const { topic } = useParams();
 
   useEffect(() => {
     getArticles().then((data) => {
-      setArticles(data);
-      setLoading(false)
+      if (!topic) {
+        setArticles(data);
+      } else {
+        const filteredArticles = data.filter((article) => article.topic === topic);
+        setArticles(filteredArticles);
+      }
+
+      setLoading(false);
     });
   }, []);
 
