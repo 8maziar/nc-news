@@ -1,4 +1,25 @@
+import { useEffect, useState } from "react";
+import { getTopics } from "../api";
+import { useNavigate } from "react-router-dom";
+
 const LandingPage = () => {
+const [topics,setTopics]=useState([])
+const [selectValue,setSelectValue]=useState('')
+
+const navigate = useNavigate();
+
+useEffect(()=>{
+  getTopics().then((res)=>{
+setTopics(res)
+  })
+},[])
+
+useEffect(()=>{
+  if(selectValue)  navigate(`/articles/${selectValue}`);
+ 
+},[selectValue])
+
+
   return (
     <main className="home">
       <section className="about">
@@ -9,7 +30,21 @@ const LandingPage = () => {
           and unlock your full potential!
         </p>
       </section>
-      <section className="topics">Topics</section>
+      <section className="topics">
+        <form action="">
+          <label htmlFor="topics">Select your topic</label>
+          <select defaultValue={''} name="topics" id="topics" onChange={(e)=> setSelectValue(e.target.value)}>
+            <option value=""  disabled hidden>
+              Choose here
+            </option>
+            {topics.map((topic) => (
+              <option value={topic.slug} key={topic.slug}>
+                {topic.slug}
+              </option>
+            ))}
+          </select>
+        </form>
+      </section>
     </main>
   );
 };
