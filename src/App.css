@@ -95,12 +95,16 @@ color: white;
 display: flex;
 }
 
-.single-article{
+.article-page section:first-child{
+width: 100%;
+}
 
+.single-article {
+  width: 500px;
 }
 
 .single-article img{
-  width: 500px;
+  width: 100%;
 }
 
 .comment-box{
@@ -126,4 +130,29 @@ display: flex;
   width: 200px;
   justify-content: space-between;
   font-size: 40px;
+}
+
+.form{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+
+}
+
+.form button {
+  padding: 10px;
+  background-color: tomato;
+}
+
+.form p {
+  position: absolute;
+  top: 11px;
+  right: 9px;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .article-page{flex-direction: column;}
 }
