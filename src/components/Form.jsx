@@ -16,6 +16,7 @@ const Form = ({ single_article, setNewComment, comments }) => {
       postComment(single_article, comment)
         .then((res) => {
           setNewComment(res);
+          setComment("");
         })
         .catch(() => {
           setErr(true);
